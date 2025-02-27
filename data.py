@@ -1,7 +1,8 @@
 import random
 from classes import ListHomeInventory, ListPlayerInventoy, SafeMoveItem
 
-home_storage = {
+home_storage = \
+    {
     "weapons": {
         'broken sword': {0: {"damage": random.randint(15, 20), "attacks_per_turn": 2, "durability": 50}},
         'regular bow': {0: {"damage": random.randint(10, 15), "attacks_per_turn": 1, "durability": 80}},
@@ -41,7 +42,8 @@ home_storage = {
 }
 
 # Inventář hráče
-player_inventory = {
+player_inventory = \
+    {
     "weapons": {
         'rusty dagger': {1: {"damage": random.randint(5, 10), "attacks_per_turn": 2, "durability": 30}}
     },
@@ -51,22 +53,25 @@ player_inventory = {
     "consumables": {
         'bread with honey': {1: {"quantity": 2}},
         'weak healing potion': {1: {"quantity": 1}}
-    },
-    "backpack": {
-        "materials": {
-            'iron ore': {"quantity": 20}
-        },
-        "magical_items": {},
-        "quest_items": {}
     }
 }
+player_backpack = \
+    {
+    "materials":    {
+        'iron ore': {"quantity": 20}
+                    },
+    "magical_items": {},
+    "quest_items": {}
+    }
+
 # # list_inv = ListHomeInventory(home_storage)
 # # list_inv.list_all()
-# list_p_inv = ListPlayerInventoy(player_inventory)
-# #list_p_inv.list_equip()
-# list_p_inv.list_backpack()
+list_p_inv = ListPlayerInventoy(player_inventory,player_backpack)
+list_p_inv.list_equip()
+list_p_inv.list_backpack()
 
-move = SafeMoveItem(player_inventory,home_storage,'iron ore')
-move.search_category()
-move.move()
-print(player_inventory)
+# move = SafeMoveItem(player_inventory,home_storage,'iron ore')
+# move.search_category()
+# move.move()
+# print(player_inventory)
+

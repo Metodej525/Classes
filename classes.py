@@ -1,6 +1,3 @@
-
-
-
 class ListHomeInventory:
     def __init__(self,inventory):
         self.inventory = inventory
@@ -48,29 +45,28 @@ class ListHomeInventory:
         ListHomeInventory.list_magical_items(self)
         ListHomeInventory.list_quest_items(self)
 class ListPlayerInventoy:
-    def __init__(self,inventory):
+    def __init__(self,inventory,backpack):
         self.inventory = inventory
+        self.backpack = backpack
     def list_equip(self):
-        """printne vse krome backpacku"""
+        """printne co ma player na sobe"""
+        print('Your equipment is :\n')
         for category, item_name in self.inventory.items():
-            if category != "backpack":
-                print(f'\n{category.upper()}: \n')
-                for name, stats_all in item_name.items():
-                    for equip_state,stats_item in stats_all.items():
-                        print(f'{name}  >>>  {stats_item}')
+            print(f'\n{category.upper()}\n')
+            for name, stats_all in item_name.items():
+                for equip_state,stats_item in stats_all.items():
+                    print(f'{name}  >>>  {stats_item}')
 
 
     def list_backpack(self):
         """printne backpack"""
-        for backpack, category in self.inventory.items():
-            if backpack == "backpack":
-
-                print(f'\n\n{backpack.upper()}:\n')
-                for category_name, item in category.items():
-                    category_print = category_name.replace("_"," ")
-                    print(f'\n{category_print}:')
-                    for item_name, stats in item.items():
-                        print(f'{item_name}  >>>  {stats}')
+        print('\n\nItems in you backpack are:\n')
+        for category, item in self.backpack.items():
+            print(f'{category}\n')
+            if self.backpack[category] == {}:
+                print('None')
+            for item_name , stats in item.items():
+                print(f'{item_name} : {stats}')
 class SafeMoveItem:
     def __init__(self,source,target,item):
         self.source = source
