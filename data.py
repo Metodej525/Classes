@@ -70,8 +70,8 @@ list_p_inv = ListPlayerInventoy(player_inventory,player_backpack)
 list_p_inv.list_equip()
 list_p_inv.list_backpack()
 
-# move = SafeMoveItem(player_inventory,home_storage,'iron ore')
-# move.search_category()
-# move.move()
-# print(player_inventory)
+move = SafeMoveItem(player_inventory,home_storage,'iron ore')
+move.search_category()
+move.move()
+
 

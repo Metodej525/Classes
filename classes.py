@@ -62,7 +62,7 @@ class ListPlayerInventoy:
         """printne backpack"""
         print('\n\nItems in you backpack are:\n')
         for category, item in self.backpack.items():
-            print(f'{category}\n')
+            print(f'\n{category}')
             if self.backpack[category] == {}:
                 print('None')
             for item_name , stats in item.items():
@@ -73,35 +73,24 @@ class SafeMoveItem:
         self.target = target
         self.item = item
         self.category = None
-        self.backpack = False
+
 
     def search_category(self):
         # Prohledáme každou kategorii v source
         for category, items in self.source.items():
-            # Speciální kontrola pro kategorii "backpack"
-            if category == 'backpack':
-                for backpack_category, backpack_items in items.items():
-                    if self.item in backpack_items:
-                        self.backpack = True
-                        self.category = backpack_category
-                        return backpack_category  # Pokud položka je v "backpack"
-            else:
-                # Pro ostatní kategorie
-                if self.item in items:
-                    self.category = category
-                    return category  # Pokud položka je v jiné kategorii
+            if self.item in items:
+                self.category = category
+                return category  # Pokud položka je v jiné kategorii
 
         # Pokud položka nebyla nalezena ve všech kategoriích
         print('Item not in inventory')
         return None
 
     def move(self):
-        if self.backpack:
-            item_to_move = self.source['backpack'][self.category].pop(self.item)
-            self.target[self.category] = item_to_move
-        elif not self.backpack:
-            item_to_move = self.source[self.category].pop(self.item)
-            self.target[self.category] = item_to_move
+        if self.category is None:
+            return
+        item_to_move = self.source[self.category].pop(self.item)
+        self.target[self.category] = item_to_move
 class EquipItem:
     pass
 class PlayerStats:
