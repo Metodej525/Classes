@@ -116,3 +116,7 @@ class Combat:
     pass
 class Loot:
     pass
+class Vendor:
+    pass
+class Money:
+    pass
