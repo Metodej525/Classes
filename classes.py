@@ -68,6 +68,7 @@ class ListPlayerInventoy:
             for item_name , stats in item.items():
                 print(f'{item_name} : {stats}')
 class SafeMoveItem:
+    """slouzi k presunuti veci z player inv do home_storage po fightu.... proto Safe...."""
     def __init__(self,source,target,item):
         self.source = source
         self.target = target
