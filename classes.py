@@ -62,9 +62,6 @@ class ListPlayerInventoy:
         """printne backpack"""
         print('\n\nItems in you backpack are:\n')
         for category, item in self.backpack.items():
-            print(f'\n{category}')
-            if self.backpack[category] == {}:
-                print('None')
             for item_name , stats in item.items():
                 print(f'{item_name} : {stats}')
 class SafeMoveItem:
@@ -92,6 +89,7 @@ class SafeMoveItem:
             return
         item_to_move = self.source[self.category].pop(self.item)
         self.target[self.category] = item_to_move
+
 class EquipItem:
     pass
 class PlayerStats:

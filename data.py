@@ -57,6 +57,9 @@ player_inventory = \
 }
 player_backpack = \
     {
+    'weapons': {},
+    'armor':  {},
+    'consumables': {},
     "materials":    {
         'iron ore': {"quantity": 20}
                     },
