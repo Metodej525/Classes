@@ -1,6 +1,6 @@
 import random
 
-from classes import ListHomeInventory, ListPlayerInventoy, SafeMoveItem, EquipManager
+from classes import ListHomeInventory, ListPlayerInventoy, SafeMoveItem, EquipManager, Stats
 
 home_storage = {
     "weapons": [
@@ -69,30 +69,51 @@ player_backpack = {
     "quest_items": []
 }
 
-player_stats = {}
-# # list_inv = ListHomeInventory(home_storage)
-# # list_inv.list_all()
-# for category,items in player_inventory.items():
-#     print(f'{category.upper()}:\n')
-#     if category == 'weapons':
-#         for item_names in items:
-#             for name, stats in item_names.items():
-#                 print(f'{name}:')
-#                 for stat, value in stats.items():
-#                     print(f'    {stat}:  {value}')
+player_stats = {'You':{'stats':{'health':100,'armor':5,'healing per round':2,'attack':20},
+                'abilities':{}}}
+weak_enemy = {
+    "slime": {
+        "stats": {"health": 30, "armor": 0, "healing per round": 1, "attack": 5},
+        "abilities": {"split": {"type": "passive", "effect": "duplicates on death"}}
+    },
+    "goblin": {
+        "stats": {"health": 50, "armor": 5, "healing per round": 2, "attack": 10},
+        "abilities": {"quick strike": {"type": "damage", "power": 15}}
+    },
+    "giant_rat": {
+        "stats": {"health": 40, "armor": 2, "healing per round": 1, "attack": 7},
+        "abilities": {"infectious bite": {"type": "damage", "power": 10, "effect": "poison"}}
+    }
+}
 
-# list_home_inv = ListHomeInventory(home_storage)
-# list_home_inv.list_all()
+medium_enemy = {
+    "skeleton_warrior": {
+        "stats": {"health": 80, "armor": 10, "healing per round": 0, "attack": 15},
+        "abilities": {"bone_shield": {"type": "buff", "power": 10}}
+    },
+    "orc_grunt": {
+        "stats": {"health": 120, "armor": 15, "healing per round": 3, "attack": 20},
+        "abilities": {"rage": {"type": "buff", "power": 10, "effect": "increased attack for 3 rounds"}}
+    },
+    "shadow_assassin": {
+        "stats": {"health": 70, "armor": 5, "healing per round": 0, "attack": 25},
+        "abilities": {"shadow_step": {"type": "evasion", "effect": "dodges next attack"}}
+    }
+}
 
-# list_player_inv = ListPlayerInventoy(player_inventory,player_inventory)
-# list_player_inv.list_backpack()
-#
-# move_home = SafeMoveItem(player_backpack,home_storage,"rusty dagger")
-# move_home.search_category()
-# move_home.search_index()
-# move_home.move()
-# list_p = ListPlayerInventoy(player_inventory,player_backpack)
-# list_h = ListHomeInventory(home_storage)
-# list_p.list_equip()
-equip = EquipManager(player_backpack,player_inventory,'rusty dagger')
-equip.equip()
+strong_enemy = {
+    "fire_elemental": {
+        "stats": {"health": 150, "armor": 20, "healing per round": 5, "attack": 30},
+        "abilities": {"flame_burst": {"type": "damage", "power": 40, "effect": "burn"}}
+    },
+    "stone_golem": {
+        "stats": {"health": 200, "armor": 50, "healing per round": 2, "attack": 20},
+        "abilities": {"earthquake": {"type": "damage", "power": 50, "effect": "stuns target"}}
+    },
+    "vampire_lord": {
+        "stats": {"health": 180, "armor": 15, "healing per round": 10, "attack": 25},
+        "abilities": {"life_drain": {"type": "heal", "power": 20, "effect": "heals for damage dealt"}}
+    }
+}
+stats_p = Stats(player_stats)
+stats_p.list_stats()

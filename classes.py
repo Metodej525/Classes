@@ -130,13 +130,20 @@ class EquipManager:
         serch_cat.search_category()
         serch_cat.search_index()
         serch_cat.move()
+class Stats:
+    def __init__(self,target_stats):
+        self.target_stats = target_stats
+    def list_stats(self):
+        for name,stats in self.target_stats.items():
+            print(f'{name.upper()}')
+            for stat_print,value in stats.items():
+                print(f'{stat_print}:')
+                for stat_name, stat_value in value.items():
+                    print(f'    {stat_name}: {stat_value}')
 
-class PlayerStats:
-    pass
-class EnemyStats:
-    pass
 class Combat:
-    pass
+    def __init__(self,):
+        pass
 class Loot:
     pass
 class Vendor:
