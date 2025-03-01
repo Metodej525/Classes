@@ -58,7 +58,7 @@ class ListPlayerInventoy:
         """printne co ma player na sobe"""
         print('Your equipment is :\n')
         for category, items in self.inventory.items():
-            print(f'\n{category.upper()}\n')
+            print(f'\n{category.upper()}:\n')
             for item in items:
                 for item_name, stats in item.items():
                     print(f'{item_name}:')
@@ -70,7 +70,7 @@ class ListPlayerInventoy:
         """printne backpack"""
         print('\n\nItems in you backpack are:\n')
         for category, items in self.inventory.items():
-            print(f'\n{category.upper()}\n')
+            print(f'\n{category.upper()}:\n')
             for item in items:
                 for item_name, stats in item.items():
                     print(f'{item_name}:')
@@ -107,16 +107,19 @@ class SafeMoveItem:
     def move(self):
         if self.category is None:
             return
+        # Kopie položky, aby pop() neovlivnil její obsah, kdyz je to bez copy tak se ulozi
+        # jen odkaz na polozky ve slovniku....
         item_to_move = self.source[self.category][self.index].copy()
-        # Kopie položky, aby pop() neovlivnil její obsah
-        self.source[self.category][self.index].pop(self.item)
         # Odstraníme konkrétní položku ze slovníku
+        # pop odstrani key, value, ale vraci jen value.....
+        self.source[self.category][self.index].pop(self.item)
+
         self.target[self.category].append(item_to_move)
         # Pokud je po odstranění slovník prázdný, smažeme ho ze seznamu
         if not self.source[self.category][self.index]:
             del self.source[self.category][self.index]
-        print(self.source[self.category])
-        print(self.target[self.category])
+
+        print(f'{self.item} moved\n')
 class EquipManager:
     def __init__(self,source,target,item):
         self.item = item
@@ -126,6 +129,7 @@ class EquipManager:
         serch_cat = SafeMoveItem(self.source,self.target,self.item)
         serch_cat.search_category()
         serch_cat.move()
+
 class PlayerStats:
     pass
 class EnemyStats:
