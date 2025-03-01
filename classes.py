@@ -128,6 +128,7 @@ class EquipManager:
     def equip(self):
         serch_cat = SafeMoveItem(self.source,self.target,self.item)
         serch_cat.search_category()
+        serch_cat.search_index()
         serch_cat.move()
 
 class PlayerStats:

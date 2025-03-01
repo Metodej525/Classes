@@ -69,7 +69,7 @@ player_backpack = {
     "quest_items": []
 }
 
-
+player_stats = {}
 # # list_inv = ListHomeInventory(home_storage)
 # # list_inv.list_all()
 # for category,items in player_inventory.items():
