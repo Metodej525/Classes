@@ -67,22 +67,7 @@ player_backpack = {
 }
 
 
-# # list_inv = ListHomeInventory(home_storage)
-# # list_inv.list_all()
-# for category,items in player_inventory.items():
-#     print(f'{category.upper()}:\n')
-#     if category == 'weapons':
-#         for item_names in items:
-#             for name, stats in item_names.items():
-#                 print(f'{name}:')
-#                 for stat, value in stats.items():
-#                     print(f'    {stat}:  {value}')
 
-# list_home_inv = ListHomeInventory(home_storage)
-# list_home_inv.list_all()
-
-# list_player_inv = ListPlayerInventoy(player_inventory,player_inventory)
-# list_player_inv.list_backpack()
 
 move_home = SafeMoveItem(player_backpack,home_storage,"iron ore")
 move_home.search_category()
