@@ -1,6 +1,6 @@
 import random
 
-from classes import ListHomeInventory, ListPlayerInventoy, SafeMoveItem
+from classes import ListHomeInventory, ListPlayerInventoy, SafeMoveItem, EquipManager
 
 home_storage = {
     "weapons": [
@@ -56,7 +56,10 @@ player_inventory = {
 }
 
 player_backpack = {
-    'weapons': [],
+    'weapons': [
+        {'rusty dagger': {"damage": random.randint(5, 10), "attacks_per_turn": 2, "durability": 30}},
+        {'rusty dagger': {"damage": random.randint(5, 10), "attacks_per_turn": 2, "durability": 30}},
+        {'magical staff': {"damage": random.randint(25, 30), "attacks_per_turn": 0.5, "durability": 100, "mana_bonus": 20}}],
     'armor': [],
     'consumables': [],
     "materials": [
@@ -67,7 +70,27 @@ player_backpack = {
 }
 
 
+# # list_inv = ListHomeInventory(home_storage)
+# # list_inv.list_all()
+# for category,items in player_inventory.items():
+#     print(f'{category.upper()}:\n')
+#     if category == 'weapons':
+#         for item_names in items:
+#             for name, stats in item_names.items():
+#                 print(f'{name}:')
+#                 for stat, value in stats.items():
+#                     print(f'    {stat}:  {value}')
 
+# list_home_inv = ListHomeInventory(home_storage)
+# list_home_inv.list_all()
 
-move_home = SafeMoveItem(player_backpack,home_storage,"iron ore")
+# list_player_inv = ListPlayerInventoy(player_inventory,player_inventory)
+# list_player_inv.list_backpack()
+#
+move_home = SafeMoveItem(player_backpack,home_storage,"rusty dagger")
 move_home.search_category()
+move_home.search_index()
+move_home.move()
+# equip = EquipManager(player_backpack,player_inventory,'rusty dagger')
+# equip.equip()
+# print(f'{player_backpack['weapons'][0]}')

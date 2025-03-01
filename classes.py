@@ -83,7 +83,7 @@ class SafeMoveItem:
         self.target = target
         self.item = item
         self.category = None
-
+        self.index = None
 
     def search_category(self):
         # Prohledáme každou kategorii v source
@@ -96,15 +96,36 @@ class SafeMoveItem:
         # Pokud položka nebyla nalezena ve všech kategoriích
         print('Item not in inventory')
         return None
+    def search_index(self):
+        for category in self.source[self.category]:
+            for items in category:
+                if self.item in items:
+                    self.index = self.source[self.category].index(category)
+
+            return
 
     def move(self):
         if self.category is None:
             return
-        item_to_move = self.source[self.category].pop(self.item)
-        self.target[self.category] = item_to_move
-
-class EquipItem:
-    pass
+        item_to_move = self.source[self.category][self.index].copy()
+        # Kopie položky, aby pop() neovlivnil její obsah
+        self.source[self.category][self.index].pop(self.item)
+        # Odstraníme konkrétní položku ze slovníku
+        self.target[self.category].append(item_to_move)
+        # Pokud je po odstranění slovník prázdný, smažeme ho ze seznamu
+        if not self.source[self.category][self.index]:
+            del self.source[self.category][self.index]
+        print(self.source[self.category])
+        print(self.target[self.category])
+class EquipManager:
+    def __init__(self,source,target,item):
+        self.item = item
+        self.source = source
+        self.target = target
+    def equip(self):
+        serch_cat = SafeMoveItem(self.source,self.target,self.item)
+        serch_cat.search_category()
+        serch_cat.move()
 class PlayerStats:
     pass
 class EnemyStats:
