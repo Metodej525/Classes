@@ -121,15 +121,21 @@ class SafeMoveItem:
 
         print(f'{self.item} moved\n')
 class EquipManager:
-    def __init__(self,source,target,item):
+    def __init__(self,player_inv,backpack,item):
         self.item = item
-        self.source = source
-        self.target = target
+        self.player_inv = player_inv
+        self.backpack= backpack
     def equip(self):
-        serch_cat = SafeMoveItem(self.source,self.target,self.item)
+        serch_cat = SafeMoveItem(self.player_inv,self.backpack,self.item)
         serch_cat.search_category()
         serch_cat.search_index()
         serch_cat.move()
+    def de_equip(self):
+        serch_cat = SafeMoveItem(self.backpack, self.player_inv, self.item)
+        serch_cat.search_category()
+        serch_cat.search_index()
+        serch_cat.move()
+
 class Stats:
     def __init__(self,target_stats):
         self.target_stats = target_stats
