@@ -135,17 +135,39 @@ class EquipManager:
         serch_cat.search_category()
         serch_cat.search_index()
         serch_cat.move()
-
-class Stats:
+class ListStats:
     def __init__(self,target_stats):
         self.target_stats = target_stats
     def list_stats(self):
         for name,stats in self.target_stats.items():
-            print(f'{name.upper()}')
+            print(f'\n{name.upper()}\n')
             for stat_print,value in stats.items():
                 print(f'{stat_print}:')
                 for stat_name, stat_value in value.items():
-                    print(f'    {stat_name}: {stat_value}')
+                    if stat_print != 'abilities':
+                        print(f'    {stat_name}: {stat_value}')
+                    else:
+                        for ability_name, ability_value in stats['abilities'].items():
+                             print(f'    {ability_name}')
+class CalcStats:
+        def __init__(self,inv,stats):
+            self.inv = inv
+            self.stats = stats
+        def calc(self):
+            for category in self.inv:
+                for item in self.inv[category]:
+                    for item_name, stat in item.items():
+                        for stat_name,i_stat_value in stat.items():
+                            if stat_name in self.stats['You']['stats']:
+                                self.stats['You']['stats'][stat_name] += i_stat_value
+            for p_name , parameters in self.stats.items():
+                print(f'{p_name}')
+                for parameter_name, value in parameters.items():
+                    if parameter_name != 'abilities':
+                        for stat_name, stat_value in value.items():
+                            print(f'    {stat_name}: {stat_value}')
+
+
 
 class Combat:
     def __init__(self,):

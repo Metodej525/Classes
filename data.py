@@ -1,6 +1,6 @@
 import random
 
-from classes import ListHomeInventory, ListPlayerInventoy, SafeMoveItem, EquipManager, Stats
+from classes import ListHomeInventory, ListPlayerInventoy, SafeMoveItem, EquipManager, ListStats, CalcStats
 
 home_storage = {
     "weapons": [
@@ -47,7 +47,7 @@ player_inventory = {
         {'rusty dagger': {"damage": random.randint(5, 10), "attacks_per_turn": 2, "durability": 30}}
     ],
     "armor": [
-        {'worn-out leather gloves': {"defense": 2, "durability": 20}}
+        {'worn-out leather gloves': {"armor": 2, "durability": 20}}
     ],
     "consumables": [
         {'bread with honey': {"quantity": 2}},
@@ -69,8 +69,11 @@ player_backpack = {
     "quest_items": []
 }
 
-player_stats = {'You':{'stats':{'health':100,'armor':5,'healing per round':2,'attack':20},
-                'abilities':{}}}
+player_stats = {
+    'You':{
+        'stats':{'health':100,'armor':5,'healing per round':2,'damage':20},
+        'abilities':{}}}
+
 weak_enemy = {
     "slime": {
         "stats": {"health": 30, "armor": 0, "healing per round": 1, "attack": 5},
@@ -115,5 +118,5 @@ strong_enemy = {
         "abilities": {"life_drain": {"type": "heal", "power": 20, "effect": "heals for damage dealt"}}
     }
 }
-stats_p = Stats(player_stats)
-stats_p.list_stats()
+calc_stats = CalcStats(player_inventory,player_stats)
+calc_stats.calc()
