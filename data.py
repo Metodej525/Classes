@@ -120,3 +120,4 @@ strong_enemy = {
 }
 calc_stats = CalcStats(player_inventory,player_stats)
 calc_stats.calc()
+calc_stats.display_stats()

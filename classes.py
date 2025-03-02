@@ -1,3 +1,4 @@
+from collections import defaultdict
 class ListHomeInventory:
     def __init__(self,inventory):
         self.inventory = inventory
@@ -150,24 +151,28 @@ class ListStats:
                         for ability_name, ability_value in stats['abilities'].items():
                              print(f'    {ability_name}')
 class CalcStats:
-        def __init__(self,inv,stats):
-            self.inv = inv
-            self.stats = stats
-        def calc(self):
-            for category in self.inv:
-                for item in self.inv[category]:
-                    for item_name, stat in item.items():
-                        for stat_name,i_stat_value in stat.items():
-                            if stat_name in self.stats['You']['stats']:
-                                self.stats['You']['stats'][stat_name] += i_stat_value
-            for p_name , parameters in self.stats.items():
-                print(f'{p_name}')
-                for parameter_name, value in parameters.items():
-                    if parameter_name != 'abilities':
-                        for stat_name, stat_value in value.items():
-                            print(f'    {stat_name}: {stat_value}')
+    def __init__(self, inv, stats):
+        self.inv = inv
+        self.stats = stats
+        self.allowed_stats = {'health', 'armor', 'healing per round', 'attack', 'damage'}  # Seznam statistik, které chceme přičítat
 
+    def calc(self):
+        aggregated_stats = defaultdict(int, self.stats['You']['stats'])  # Základní statistiky hráče
 
+        # Sečtení statistik z inventáře
+        for items in self.inv.values():
+            for item in items:
+                for stat in item.values():
+                    for stat_name, stat_value in stat.items():
+                        if stat_name in self.allowed_stats:  # Přičítáme jen relevantní statistiky
+                            aggregated_stats[stat_name] += stat_value
+
+        self.stats['You']['stats'] = dict(aggregated_stats)  # Aktualizace statistik hráče
+
+    def display_stats(self):
+        print("Player Stats:")
+        for stat_name, stat_value in self.stats['You']['stats'].items():
+            print(f"  {stat_name}: {stat_value}")
 
 class Combat:
     def __init__(self,):
