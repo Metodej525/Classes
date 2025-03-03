@@ -174,12 +174,30 @@ class CalcStats:
         for stat_name, stat_value in self.stats['You']['stats'].items():
             print(f"  {stat_name}: {stat_value}")
 
-class Combat:
-    def __init__(self,):
-        pass
+class Attack:
+    def __init__(self, source,target):
+        self.source = source
+        self.target = target
+
+    def hit(self):
+        source_damage = 0
+        for name, atributes in self.source.items():
+            for atribute_name, stats in atributes.items():
+                source_damage = stats.get('damage', 0)
+
+        for name, atributes in self.target.items():
+            for atribute_name, stats in atributes.items():
+                target_health, target_armor  = stats['health'], stats['armor']
+                # Správný výpočet zbývajícího zdraví
+                damage_taken = max(0, source_damage - target_armor)  # Ochrání před zápornými čísly
+                stats['health'] = max(0, target_health - damage_taken)  # Nejde pod 0
+
+                return stats['health']  # Vrátí nové zdraví (ukončí smyčku po prvním nepříteli)
 class Loot:
     pass
 class Vendor:
     pass
 class Money:
+    pass
+class Abilities:
     pass
