@@ -1,6 +1,6 @@
 import random
 
-from classes import ListHomeInventory, ListPlayerInventoy, SafeMoveItem, EquipManager, ListStats, CalcStats, Attack
+from classes import Combat
 
 home_storage = {
     "weapons": [
@@ -118,4 +118,5 @@ strong_enemy = {
         "abilities": {"life_drain": {"type": "heal", "power": 20, "effect": "heals for damage dealt"}}
     }
 }
-attack_p = Attack(player_stats,weak_enemy['slime'])
+attack_p = Combat(player_stats['You'],weak_enemy['slime'])
+attack_p.hit()
