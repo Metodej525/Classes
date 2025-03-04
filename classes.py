@@ -1,4 +1,7 @@
 from collections import defaultdict
+
+
+
 class ListHomeInventory:
     def __init__(self,inventory):
         self.inventory = inventory
@@ -141,7 +144,7 @@ class ListStats:
         self.target_stats = target_stats
     def list_stats(self):
         for name,stats in self.target_stats.items():
-            print(f'\n{name.upper()}\n')
+            print(f'\n{name.upper()}')
             for stat_print,value in stats.items():
                 print(f'{stat_print}:')
                 for stat_name, stat_value in value.items():
@@ -151,6 +154,7 @@ class ListStats:
                         for ability_name, ability_value in stats['abilities'].items():
                              print(f'    {ability_name}')
 class CalcStats:
+    """spočítá staty enity + co má na sobě a přičte to """
     def __init__(self, inv, stats):
         self.inv = inv
         self.stats = stats
@@ -173,25 +177,30 @@ class CalcStats:
         print("Player Stats:")
         for stat_name, stat_value in self.stats['You']['stats'].items():
             print(f"  {stat_name}: {stat_value}")
-
 class Combat:
     def __init__(self, source,target):
         self.source = source
         self.target = target
-
+        self.target_block = False
     def hit(self):
         source_damage = 0
-        for name, atributes in self.source.items():
-            source_damage = atributes['damage']
-            print(source_damage)
-            return
-        for name, atributes in self.target.items():
+        for name, attributes in self.source.items():
+            source_damage = attributes['damage']
+            break
+        for name, attributes in self.target.items():
             # for atribute_name, stats in atributes.items():
-                target_health, target_armor  = atributes['health'], atributes['armor']
-                # Správný výpočet zbývajícího zdraví
-                damage_taken = max(0, source_damage - target_armor)  # Ochrání před zápornými čísly
-                atributes['health'] = max(0, target_health - damage_taken)  # Nejde pod 0
-                return atributes['health']  # Vrátí nové zdraví (ukončí smyčku po prvním nepříteli)
+            target_health, target_armor  = attributes['health'], attributes['armor']
+            damage_taken = max(0, source_damage - target_armor)
+            # Správný výpočet zbývajícího zdraví
+            if self.target_block:
+                # Pokud cíl blokuje, sníží příchozí poškození na 25%
+                attributes['health'] = max(0, round(0.25 * (target_health - damage_taken)))
+            else:
+                attributes['health'] = max(0, target_health - damage_taken)
+
+            return attributes['health']  # Vrací zdraví prvního zasaženého nepřítele
+    def block(self):
+        self.target_block = True
 
 class Loot:
     pass
