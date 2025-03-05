@@ -1,6 +1,6 @@
 import random
 
-from classes import Combat, ListStats, CalcStats
+from classes import Combat, ListStats, CalcStats, Encounter
 
 home_storage = {
     "weapons": [
@@ -119,14 +119,7 @@ strong_enemy = {
     }
 }
 
-encounter = {"slime": {
-        "stats": {"health": 30, "armor": 0, "healing per round": 1, "damage": 5},
-        "abilities": {"split": {"type": "passive", "effect": "duplicates on death"}}
-    }}
-calc = CalcStats(player_inventory,player_stats)
-calc.calc()
-calc.display_stats()
-attack_p = Combat(player_stats['You'],encounter['slime'])
-attack_p.hit()
-list_enemy_stats = ListStats(encounter)
-list_enemy_stats.list_stats()
+encounter = {
+    }
+stage_enconter = Encounter(encounter,weak_enemy,medium_enemy,strong_enemy)
+stage_enconter.encounter_stage1()

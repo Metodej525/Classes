@@ -1,3 +1,4 @@
+import random
 from collections import defaultdict
 
 
@@ -210,3 +211,16 @@ class Money:
     pass
 class Abilities:
     pass
+class Encounter:
+    def __init__(self,encounter_dic,w_enemy,m_enemy,s_enemy):
+        self.encounter_dic = encounter_dic
+        self.w_enemy = w_enemy
+        self.m_enemy = m_enemy
+        self.s_enemy = s_enemy
+    def encounter_stage1(self):
+        self.encounter_dic = random.choice(self.w_enemy)
+        print(self.encounter_dic)
+    def encounter_stage2(self):
+        pass
+    def encounter_stage3(self):
+        pass
